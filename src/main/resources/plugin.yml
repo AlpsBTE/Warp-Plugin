@@ -1,0 +1,12 @@
+name: Main
+version: ${project.version}
+main: alpsbte.warp.main.Main
+authors: [ DerHohii ]
+description: Warp Plugin for AlpsBTE
+website: alps-bte.com
+commands:
+  warp:
+    description: Warp
+  setwarp:
+    description: SetWarp
+
