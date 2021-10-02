@@ -13,8 +13,8 @@ public final class Main extends JavaPlugin {
 
 
 
-    private File customConfigFile;
-    public YamlConfiguration customConfig;
+    private File createWarpList;
+    public YamlConfiguration warpList;
 
 
     private static Main plugin;
@@ -22,37 +22,32 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-
         getCommand("warp").setExecutor(new CMD_WarpCommand());
         getCommand("setwarp").setExecutor(new CMD_SetWarpCommand());
         System.out.println("Plugin loaded");
-        createCustomConfig("config.yml");
+        createWarpList("config.yml");
         try {
-            customConfig.load(customConfigFile);
+            warpList.load(createWarpList);
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
-        for (String i: customConfig.getKeys(false)) {
-            System.out.println(customConfig.get(i+".name"));
-            System.out.println(customConfig.get(i+".name"));
-
-        }
     }
+
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
     }
-    private void createCustomConfig(String s) {
-        customConfigFile = new File(getDataFolder(), "warps.yml");
-        if (!customConfigFile.exists()) {
-            customConfigFile.getParentFile().mkdirs();
+    private void createWarpList(String s) {
+        createWarpList = new File(getDataFolder(), "warps.yml");
+        if (!createWarpList.exists()) {
+            createWarpList.getParentFile().mkdirs();
             saveResource("warps.yml", false);
         }
 
-        customConfig = new YamlConfiguration();
+        warpList = new YamlConfiguration();
         try {
-            customConfig.load(customConfigFile);
+            warpList.load(createWarpList);
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
