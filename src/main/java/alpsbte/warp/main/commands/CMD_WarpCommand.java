@@ -1,6 +1,9 @@
 package alpsbte.warp.main.commands;
 
 import alpsbte.warp.main.Main;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,10 +21,16 @@ public class CMD_WarpCommand implements CommandExecutor {
             if (p.hasPermission("warp")) {
                 YamlConfiguration customConfig = Main.getPlugin().customConfig;
                 for (String i: customConfig.getKeys(false)) {
-                    if (args[0].equalsIgnoreCase((String) customConfig.get(i+".name"))) {
-                        System.out.println(customConfig.get(i+".x"));
-                        System.out.println(customConfig.get(i+".y"));
-                        System.out.println(customConfig.get(i+".z"));
+                    p.sendMessage(String.valueOf(customConfig.get(i+".name")));
+                    if (args[0].equalsIgnoreCase(String.valueOf(customConfig.get(i+".name")))) {
+                        World world = Bukkit.getWorld(String.valueOf(customConfig.get(i+".x")));
+                        Double x = (Double) customConfig.get(i+".x");
+                        Double y = (Double) customConfig.get(i+".y");
+                        Double z = (Double) customConfig.get(i+".z");
+                        Location loc = new Location(world, x, y, z);
+                        p.teleport(loc);
+
+
                     }
 
                 }
