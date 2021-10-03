@@ -37,7 +37,7 @@ public class CMD_SetWarpCommand implements CommandExecutor {
                             ids.add(parseInt(i.split("_")[1]));
 
                             if (warpList.get(i + ".name").toString().equalsIgnoreCase(args[0])) {
-                                p.sendMessage(config.getString("message.setwarp_error_warp_exists"));
+                                p.sendMessage(config.getString("messages.setwarp_error_warp_exists"));
                                 return true;
 
                             }
@@ -60,20 +60,21 @@ public class CMD_SetWarpCommand implements CommandExecutor {
                         warpList.set(newId + ".by", String.valueOf(p.getUniqueId()));
                         try {
                             warpList.save(Main.getPlugin().getDataFolder() + File.separator + "warps.yml");
-                            p.sendMessage(config.getString("message.setwarp_success"));
+                            p.sendMessage(config.getString("messages.setwarp_success"));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
 
+
                     } else {
-                        p.sendMessage(config.getString("message.setwarp_error_usage"));
+                        p.sendMessage(config.getString("messages.setwarp_error_usage"));
                     }
                 } else {
-                    p.sendMessage(config.getString("message.no_permission"));
+                    p.sendMessage(config.getString("messages.no_permission"));
                 }
             } else {
-                Bukkit.getLogger().log(Level.SEVERE, config.getString("message.explain_to_console_why_you_cant_warp_a_console")); // TODO Change
+                Bukkit.getLogger().log(Level.SEVERE, config.getString("messages.explain_to_console_why_you_cant_warp_a_console"));
             }
         }
         return false;

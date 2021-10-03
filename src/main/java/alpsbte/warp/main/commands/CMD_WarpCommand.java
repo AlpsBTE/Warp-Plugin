@@ -8,15 +8,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.logging.Level;
+
 public class CMD_WarpCommand implements CommandExecutor {
 // TODO Add args check
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("warp")) {
+            YamlConfiguration warpList = Main.getPlugin().warpList;
+            YamlConfiguration config = Main.getPlugin().config;
             if (sender instanceof Player) {
                 Player p = (Player) sender;
-                YamlConfiguration warpList = Main.getPlugin().warpList;
-                YamlConfiguration config = Main.getPlugin().config;
+
                 if (p.hasPermission(config.getString("permission.warp_permission"))) {
                     if (args.length == 1) {
 
@@ -35,14 +38,16 @@ public class CMD_WarpCommand implements CommandExecutor {
                             return true;
                         }
                     }
-                    p.sendMessage(config.getString("message.warp_error_not_found"));
+                    p.sendMessage(config.getString("messages.warp_error_not_found"));
                 } else {
                         p.sendMessage(config.getString("messages.warp_error_usage"));
                     }
                 } else {
                     p.sendMessage(config.getString("messages.no_permission"));
                 }
-            }
+            }  else {
+            Bukkit.getLogger().log(Level.SEVERE, config.getString("messages.explain_to_console_why_you_cant_warp_a_console"));
+        }
         }
         return false;
     }

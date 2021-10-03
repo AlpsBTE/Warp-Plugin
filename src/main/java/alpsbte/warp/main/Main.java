@@ -68,7 +68,7 @@ public final class Main extends JavaPlugin {
 
         config = new YamlConfiguration();
         try {
-            config.load(createWarpList);
+            config.load(createConfig);
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
