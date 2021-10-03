@@ -16,6 +16,9 @@ public final class Main extends JavaPlugin {
     private File createWarpList;
     public YamlConfiguration warpList;
 
+    private File createConfig;
+    public YamlConfiguration config;
+
 
     private static Main plugin;
 
@@ -48,6 +51,21 @@ public final class Main extends JavaPlugin {
         warpList = new YamlConfiguration();
         try {
             warpList.load(createWarpList);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createConfig(String s) {
+        createConfig = new File(getDataFolder(), "config.yml");
+        if (!createConfig.exists()) {
+            createConfig.getParentFile().mkdirs();
+            saveResource("config.yml", false);
+        }
+
+        config = new YamlConfiguration();
+        try {
+            config.load(createWarpList);
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }

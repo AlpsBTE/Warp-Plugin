@@ -1,6 +1,17 @@
-warp_permission: null
-setwarp_permission: null
-warp_error_message: "error"
-setwarp_error_message: "error"
-warp_sucess_message: "gud"
-setwarp_sucess_message: "gud"
+messages:
+  warp_success: ""
+  warp_error_not_found: ""
+  warp_error_usage: ""
+  setwarp_success: ""
+  setwarp_error_warp_exists: ""
+  setwarp_error_usage: ""
+
+settings:
+  coutries:
+    ch: "Switerland"
+    au: "Austria"
+    li: "lichtenstein"
+
+permission:
+  warp_permission: "alpsbte.warp"
+  setwarp_permission: "alpsbte.moderator"

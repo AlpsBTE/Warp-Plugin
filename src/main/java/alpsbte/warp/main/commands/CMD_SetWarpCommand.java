@@ -32,6 +32,10 @@ public class CMD_SetWarpCommand implements CommandExecutor {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
                 if (p.hasPermission("alpsbte.moderator")) {
+                    if (args[0] != null && args[1] != null) {
+
+
+                    }
 
                     FileConfiguration warpList = Main.getPlugin().warpList;
                     List<Integer> ids = new ArrayList<Integer>();
@@ -39,7 +43,11 @@ public class CMD_SetWarpCommand implements CommandExecutor {
                     for (String i : warpList.getKeys(false)) {
                         ids.add(parseInt(i.split("_")[1]));
                     }
-                    String newId = "warp_" + (Collections.max(ids, null) + 1); // TODO add try catch to set to 0 if no one exists
+
+                    String newId = "warp_0";
+                    if (warpList.getKeys(false).size() != 0) {
+                        newId = "warp_" + (Collections.max(ids, null) + 1);
+                    }
 
                     warpList.set(newId, "Pater");
                     warpList.createSection(newId);
