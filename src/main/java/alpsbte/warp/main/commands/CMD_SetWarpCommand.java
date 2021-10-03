@@ -19,21 +19,16 @@ import static java.lang.Integer.parseInt;
 
 public class CMD_SetWarpCommand implements CommandExecutor {
 
-    /*
-
-    TODO check if Warp exisits
-    TODO check for args
-
-     */
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        FileConfiguration config = Main.getPlugin().config;
+        FileConfiguration warpList = Main.getPlugin().warpList;
         if (command.getName().equalsIgnoreCase("setwarp")) {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
-                FileConfiguration config = Main.getPlugin().config;
-                FileConfiguration warpList = Main.getPlugin().warpList;
-                if (p.hasPermission("alpsbte.moderator")) {
+
+                if (p.hasPermission(config.getString("permission.warpedit_permission"))) {
                     if (args.length == 2) {
 
                         List<Integer> ids = new ArrayList<Integer>();
@@ -42,7 +37,7 @@ public class CMD_SetWarpCommand implements CommandExecutor {
                             ids.add(parseInt(i.split("_")[1]));
 
                             if (warpList.get(i + ".name").toString().equalsIgnoreCase(args[0])) {
-                                p.sendMessage("DUPE");
+                                p.sendMessage(config.getString("message.setwarp_error_warp_exists"));
                                 return true;
 
                             }
@@ -65,17 +60,20 @@ public class CMD_SetWarpCommand implements CommandExecutor {
                         warpList.set(newId + ".by", String.valueOf(p.getUniqueId()));
                         try {
                             warpList.save(Main.getPlugin().getDataFolder() + File.separator + "warps.yml");
+                            p.sendMessage(config.getString("message.setwarp_success"));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
 
                     } else {
-                        p.sendMessage("usage"); // TODO Change
+                        p.sendMessage(config.getString("message.setwarp_error_usage"));
                     }
                 } else {
-                    Bukkit.getLogger().log(Level.SEVERE, "Leon... einfach nei"); // TODO Change
+                    p.sendMessage(config.getString("message.no_permission"));
                 }
+            } else {
+                Bukkit.getLogger().log(Level.SEVERE, config.getString("message.explain_to_console_why_you_cant_warp_a_console")); // TODO Change
             }
         }
         return false;

@@ -1,5 +1,6 @@
 package alpsbte.warp.main;
 
+import alpsbte.warp.main.commands.CMD_DelWarpCommand;
 import alpsbte.warp.main.commands.CMD_SetWarpCommand;
 import alpsbte.warp.main.commands.CMD_WarpCommand;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -27,6 +28,7 @@ public final class Main extends JavaPlugin {
         plugin = this;
         getCommand("warp").setExecutor(new CMD_WarpCommand());
         getCommand("setwarp").setExecutor(new CMD_SetWarpCommand());
+        getCommand("delwarp").setExecutor(new CMD_DelWarpCommand());
         System.out.println("Plugin loaded");
         createWarpList("warps.yml");
         createConfig("config.yml");

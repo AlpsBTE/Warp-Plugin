@@ -9,4 +9,6 @@ commands:
     description: Warp
   setwarp:
     description: SetWarp
+  delwarp:
+    description: SetWarp
 
