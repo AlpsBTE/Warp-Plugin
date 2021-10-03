@@ -5,12 +5,7 @@ messages:
   setwarp_success: ""
   setwarp_error_warp_exists: ""
   setwarp_error_usage: ""
-
-settings:
-  coutries:
-    ch: "Switerland"
-    au: "Austria"
-    li: "lichtenstein"
+  explain_to_console_why_you_cant_warp_a_console: ""
 
 permission:
   warp_permission: "alpsbte.warp"

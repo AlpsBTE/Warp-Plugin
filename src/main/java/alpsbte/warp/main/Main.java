@@ -28,7 +28,8 @@ public final class Main extends JavaPlugin {
         getCommand("warp").setExecutor(new CMD_WarpCommand());
         getCommand("setwarp").setExecutor(new CMD_SetWarpCommand());
         System.out.println("Plugin loaded");
-        createWarpList("config.yml");
+        createWarpList("warps.yml");
+        createConfig("config.yml");
         try {
             warpList.load(createWarpList);
         } catch (IOException | InvalidConfigurationException e) {

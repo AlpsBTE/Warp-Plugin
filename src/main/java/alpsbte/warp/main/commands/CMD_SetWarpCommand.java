@@ -31,45 +31,51 @@ public class CMD_SetWarpCommand implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("setwarp")) {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
+                FileConfiguration config = Main.getPlugin().config;
+                FileConfiguration warpList = Main.getPlugin().warpList;
                 if (p.hasPermission("alpsbte.moderator")) {
-                    if (args[0] != null && args[1] != null) {
+                    if (args.length == 2) {
+
+                        List<Integer> ids = new ArrayList<Integer>();
+
+                        for (String i : warpList.getKeys(false)) {
+                            ids.add(parseInt(i.split("_")[1]));
+
+                            if (warpList.get(i + ".name").toString().equalsIgnoreCase(args[0])) {
+                                p.sendMessage("DUPE");
+                                return true;
+
+                            }
+                        }
+
+                        String newId = "warp_0";
+                        if (warpList.getKeys(false).size() != 0) {
+                            newId = "warp_" + (Collections.max(ids, null) + 1);
+                        }
+
+                        warpList.createSection(newId);
+                        warpList.set(newId + ".name", args[0]);
+                        warpList.set(newId + ".x", p.getLocation().getX());
+                        warpList.set(newId + ".y", p.getLocation().getY());
+                        warpList.set(newId + ".z", p.getLocation().getZ());
+                        warpList.set(newId + ".yaw", p.getLocation().getYaw());
+                        warpList.set(newId + ".pitch", p.getLocation().getPitch());
+                        warpList.set(newId + ".world", p.getLocation().getWorld().getName());
+                        warpList.set(newId + ".country", args[1]);
+                        warpList.set(newId + ".by", String.valueOf(p.getUniqueId()));
+                        try {
+                            warpList.save(Main.getPlugin().getDataFolder() + File.separator + "warps.yml");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
 
+                    } else {
+                        p.sendMessage("usage"); // TODO Change
                     }
-
-                    FileConfiguration warpList = Main.getPlugin().warpList;
-                    List<Integer> ids = new ArrayList<Integer>();
-
-                    for (String i : warpList.getKeys(false)) {
-                        ids.add(parseInt(i.split("_")[1]));
-                    }
-
-                    String newId = "warp_0";
-                    if (warpList.getKeys(false).size() != 0) {
-                        newId = "warp_" + (Collections.max(ids, null) + 1);
-                    }
-
-                    warpList.set(newId, "Pater");
-                    warpList.createSection(newId);
-                    warpList.set(newId + ".name", args[0]);
-                    warpList.set(newId + ".x", p.getLocation().getX());
-                    warpList.set(newId + ".y", p.getLocation().getY());
-                    warpList.set(newId + ".z", p.getLocation().getZ());
-                    warpList.set(newId + ".yaw", p.getLocation().getYaw());
-                    warpList.set(newId + ".pitch", p.getLocation().getPitch());
-                    warpList.set(newId + ".world", p.getLocation().getWorld().getName());
-                    warpList.set(newId + ".country", args[1]);
-                    warpList.set(newId + ".by", String.valueOf(p.getUniqueId()));
-                    p.sendMessage("Warp wurde erstellt"); // TODO Change
-
-                    try {
-                        warpList.save(Main.getPlugin().getDataFolder() + File.separator + "warps.yml");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else {
+                    Bukkit.getLogger().log(Level.SEVERE, "Leon... einfach nei"); // TODO Change
                 }
-            } else {
-                Bukkit.getLogger().log(Level.SEVERE, "Leon... einfach nei"); // TODO Change
             }
         }
         return false;

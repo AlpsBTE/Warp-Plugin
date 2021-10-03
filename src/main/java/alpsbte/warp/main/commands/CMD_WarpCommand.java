@@ -3,6 +3,7 @@ package alpsbte.warp.main.commands;
 import alpsbte.warp.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,10 +27,11 @@ public class CMD_WarpCommand implements CommandExecutor {
                             Double x = (Double) warpList.get(i + ".x");
                             Double y = (Double) warpList.get(i + ".y");
                             Double z = (Double) warpList.get(i + ".z");
-                            Float yaw = (Float) warpList.get(i + ".yaw");
-                            Float pitch = (Float) warpList.get(i + ".pitch");
-                            Location loc = new Location(world, x, y, z, yaw, pitch);
+                            Double yaw = (Double) warpList.get(i + ".yaw");
+                            Double pitch = (Double) warpList.get(i + ".pitch");
+                            Location loc = new Location(world, x, y, z, yaw.floatValue(), pitch.floatValue());
                             p.teleport(loc);
+                            p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 5, 2);
                             return true;
                         }
                     }
