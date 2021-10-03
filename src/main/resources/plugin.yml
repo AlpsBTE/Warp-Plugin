@@ -1,4 +1,4 @@
-name: Main
+name: WarpPlugin
 version: ${project.version}
 main: alpsbte.warp.main.Main
 authors: [ DerHohii ]
@@ -6,9 +6,9 @@ description: Warp Plugin for AlpsBTE
 website: alps-bte.com
 commands:
   warp:
-    description: Warp
+    description: Warp a player to a warp
   setwarp:
-    description: SetWarp
+    description: Set a warp on the location of the user
   delwarp:
-    description: SetWarp
+    description: Delete a warp
 
