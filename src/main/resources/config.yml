@@ -1,3 +1,10 @@
+database:
+  url: ""
+  name: ""
+  username: ""
+  password: ""
+
+
 messages:
   warp_success: "§aDu wurdest erfolgreich gewarped"
   warp_error_not_found: "§cWarp konnte nicht gefunden werden"
