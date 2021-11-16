@@ -7,6 +7,8 @@ website: alps-bte.com
 commands:
   warp:
     description: Warp a player to a warp
+    usage: /warp <name>
+    permission: alpsbte.warp
   setwarp:
     description: Set a warp on the location of the user
   delwarp:

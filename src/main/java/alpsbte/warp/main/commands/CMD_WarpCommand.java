@@ -20,7 +20,7 @@ public class CMD_WarpCommand implements CommandExecutor {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
 
-                if (p.hasPermission(config.getString("permission.warp_permission"))) {
+                if (p.hasPermission("alpsbte.warp")) {
                     if (args.length == 1) {
 
                     for (String i : warpList.getKeys(false)) {
@@ -46,8 +46,8 @@ public class CMD_WarpCommand implements CommandExecutor {
                     p.sendMessage(config.getString("messages.no_permission"));
                 }
             }  else {
-            Bukkit.getLogger().log(Level.SEVERE, config.getString("messages.explain_to_console_why_you_cant_warp_a_console"));
-        }
+                Bukkit.getLogger().log(Level.SEVERE, config.getString("messages.explain_to_console_why_you_cant_warp_a_console"));
+            }
         }
         return false;
     }

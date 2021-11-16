@@ -19,5 +19,4 @@ messages:
   no_permission: "§cDu hast keine Berechtigung"
 
 permission:
-  warp_permission: "alpsbte.warp"
   warpedit_permission: "alpsbte.moderator"
