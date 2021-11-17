@@ -43,7 +43,6 @@ public final class Main extends JavaPlugin {
             e.printStackTrace();
         }
 
-
         // Initialize database connection
         try {
             DatabaseConnection.InitializeDatabase();

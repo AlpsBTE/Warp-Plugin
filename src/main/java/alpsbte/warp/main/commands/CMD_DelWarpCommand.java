@@ -1,6 +1,8 @@
 package alpsbte.warp.main.commands;
 
 import alpsbte.warp.main.Main;
+import alpsbte.warp.main.core.Warp;
+import alpsbte.warp.main.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,39 +19,29 @@ public class CMD_DelWarpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("delwarp")) {
-            FileConfiguration warpList = Main.getPlugin().warpList;
-            FileConfiguration config = Main.getPlugin().config;
             if (sender instanceof Player) {
                 Player p = (Player) sender;
 
-                if (p.hasPermission(config.getString("permission.warpedit_permission"))) {
+                if (p.hasPermission("alpsbte.moderator")) {
                     if (args.length == 1) {
-                        for (String i : warpList.getKeys(false)) {
-                            if (warpList.getString(i + ".name").equalsIgnoreCase(args[0])) {
-                                warpList.set(i, null);
-                                try {
-                                    warpList.save(Main.getPlugin().getDataFolder() + File.separator + "warps.yml");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                p.sendMessage(config.getString("messages.delwarp_success"));
-                                return true;
-                            }
+                        if (Warp.exists(args[0])) {
+                            Warp.removeWarp(args[0]);
+                            p.sendMessage(Utils.getInfoMessageFormat("Successfully removed warp " + args[0] + "!"));
+                        } else {
+                            p.sendMessage(Utils.getErrorMessageFormat("Could not find warp " + args[0] + "!"));
                         }
-                        p.sendMessage(config.getString("messages.delwarp_error_warp_not_exists"));
-
                     } else {
-                        p.sendMessage(config.getString("messages.delwarp_error_usage"));
+                        p.sendMessage(Utils.getErrorMessageFormat("Incorrect input! Try /delwarp <name>"));
                     }
                 } else {
-                    p.sendMessage(config.getString("messages.no_permission"));
+                    p.sendMessage(Utils.getErrorMessageFormat("No permission!"));
                 }
-
             } else {
-            Bukkit.getLogger().log(Level.SEVERE, config.getString("messages.explain_to_console_why_you_cant_warp_a_console"));
+                FileConfiguration config = Main.getPlugin().config;
+                Bukkit.getLogger().log(Level.SEVERE, config.getString("messages.explain_to_console_why_you_cant_warp_a_console"));
+            }
         }
-        }
-        return false;
+        return true;
     }
 
 }

@@ -1,6 +1,8 @@
 package alpsbte.warp.main.commands;
 
 import alpsbte.warp.main.Main;
+import alpsbte.warp.main.core.Warp;
+import alpsbte.warp.main.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,64 +21,32 @@ import static java.lang.Integer.parseInt;
 
 public class CMD_SetWarpCommand implements CommandExecutor {
 
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        FileConfiguration config = Main.getPlugin().config;
-        FileConfiguration warpList = Main.getPlugin().warpList;
+
         if (command.getName().equalsIgnoreCase("setwarp")) {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
 
-                if (p.hasPermission(config.getString("permission.warpedit_permission"))) {
-                    if (args.length == 2) {
-
-                        List<Integer> ids = new ArrayList<Integer>();
-
-                        for (String i : warpList.getKeys(false)) {
-                            ids.add(parseInt(i.split("_")[1]));
-
-                            if (warpList.get(i + ".name").toString().equalsIgnoreCase(args[0])) {
-                                p.sendMessage(config.getString("messages.setwarp_error_warp_exists"));
-                                return true;
-
-                            }
+                if (p.hasPermission("alpsbte.moderator")) {
+                    if (args.length == 1) {
+                        if (!Warp.exists(args[0])) {
+                            Warp.addWarp(args[0], p.getLocation());
+                            p.sendMessage(Utils.getInfoMessageFormat("Successfully added warp with name " + args[0]));
+                        } else {
+                            p.sendMessage(Utils.getErrorMessageFormat("Warp already exists!"));
                         }
-
-                        String newId = "warp_0";
-                        if (warpList.getKeys(false).size() != 0) {
-                            newId = "warp_" + (Collections.max(ids, null) + 1);
-                        }
-
-                        warpList.createSection(newId);
-                        warpList.set(newId + ".name", args[0]);
-                        warpList.set(newId + ".x", p.getLocation().getX());
-                        warpList.set(newId + ".y", p.getLocation().getY());
-                        warpList.set(newId + ".z", p.getLocation().getZ());
-                        warpList.set(newId + ".yaw", p.getLocation().getYaw());
-                        warpList.set(newId + ".pitch", p.getLocation().getPitch());
-                        warpList.set(newId + ".world", p.getLocation().getWorld().getName());
-                        warpList.set(newId + ".country", args[1]);
-                        warpList.set(newId + ".by", String.valueOf(p.getUniqueId()));
-                        try {
-                            warpList.save(Main.getPlugin().getDataFolder() + File.separator + "warps.yml");
-                            p.sendMessage(config.getString("messages.setwarp_success"));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-
-
                     } else {
-                        p.sendMessage(config.getString("messages.setwarp_error_usage"));
+                        p.sendMessage(Utils.getErrorMessageFormat("Incorrect input! Try /setwarp <name>"));
                     }
                 } else {
-                    p.sendMessage(config.getString("messages.no_permission"));
+                    p.sendMessage(Utils.getErrorMessageFormat("No permission!"));
                 }
             } else {
+                FileConfiguration config = Main.getPlugin().config;
                 Bukkit.getLogger().log(Level.SEVERE, config.getString("messages.explain_to_console_why_you_cant_warp_a_console"));
             }
         }
-        return false;
+        return true;
     }
 }

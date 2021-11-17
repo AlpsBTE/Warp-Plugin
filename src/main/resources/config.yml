@@ -7,8 +7,8 @@ database:
 
 messages:
   warp_success: "§aDu wurdest erfolgreich gewarped"
-  warp_error_not_found: "§cWarp konnte nicht gefunden werden"
-  warp_error_usage: "§eFehler: /warp <name>"
+  #warp_error_not_found: "§cWarp konnte nicht gefunden werden"
+  #warp_error_usage: "§eFehler: /warp <name>"
   setwarp_success: "§aWarp erfolgeich gesetzt"
   setwarp_error_warp_exists: "§cWarp existiert breits. Warp Löschen um neu zu setzen"
   setwarp_error_usage: "§eFehler: /setwarp <name> <ch | au | li>"
@@ -16,7 +16,7 @@ messages:
   delwarp_error_warp_not_exists: "§cWarp existiert nicht"
   delwarp_error_usage: "§eFehler /delwarp <name>"
   explain_to_console_why_you_cant_warp_a_console: "§cWTF, wie stellst du dir vor die Konsole zu Warpen?? What?"
-  no_permission: "§cDu hast keine Berechtigung"
+  #no_permission: "§cDu hast keine Berechtigung"
 
 permission:
   warpedit_permission: "alpsbte.moderator"

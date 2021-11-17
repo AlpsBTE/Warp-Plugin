@@ -11,6 +11,10 @@ commands:
     permission: alpsbte.warp
   setwarp:
     description: Set a warp on the location of the user
+    usage: /setwarp <name>
+    permission: alpsbte.moderator
   delwarp:
     description: Delete a warp
+    usage: /delwarp <name>
+    permission: alpsbte.moderator
 

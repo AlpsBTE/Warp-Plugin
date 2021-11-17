@@ -15,9 +15,10 @@ public class State {
         this.ID = ID;
 
         // Get Values from Database
-        try (ResultSet rsCountry = DatabaseConnection.createStatement("SELECT name, mainWarp_name FROM states WHERE id = ?").setValue(ID).executeQuery()) {
-            name = rsCountry.getString(1);
-            mainWarpName = rsCountry.getString(2);
+        try (ResultSet rsState = DatabaseConnection.createStatement("SELECT name, mainWarp_name FROM states WHERE id = ?").setValue(ID).executeQuery()) {
+            rsState.next();
+            name = rsState.getString(1);
+            mainWarpName = rsState.getString(2);
         } catch (SQLException throwables) {
             Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting state data from database!", throwables);
         }

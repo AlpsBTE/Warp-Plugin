@@ -17,6 +17,7 @@ public class Country {
 
         // Get Values from Database
         try (ResultSet rsCountry = DatabaseConnection.createStatement("SELECT name, head_id FROM countries WHERE id = ?").setValue(ID).executeQuery()) {
+            rsCountry.next();
             name = rsCountry.getString(1);
             headID = rsCountry.getString(2);
         } catch (SQLException throwables) {
