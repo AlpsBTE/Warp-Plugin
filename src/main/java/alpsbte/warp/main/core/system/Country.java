@@ -1,5 +1,6 @@
-package alpsbte.warp.main.core;
+package alpsbte.warp.main.core.system;
 
+import alpsbte.warp.main.core.database.DatabaseConnection;
 import org.bukkit.Bukkit;
 
 import java.sql.ResultSet;

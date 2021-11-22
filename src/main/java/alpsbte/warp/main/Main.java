@@ -1,47 +1,40 @@
 package alpsbte.warp.main;
 
-import alpsbte.warp.main.commands.CMD_DelWarpCommand;
-import alpsbte.warp.main.commands.CMD_SetWarpCommand;
-import alpsbte.warp.main.commands.CMD_WarpCommand;
-import alpsbte.warp.main.core.DatabaseConnection;
+import alpsbte.warp.main.commands.CMD_DelWarp;
+import alpsbte.warp.main.commands.CMD_SetWarp;
+import alpsbte.warp.main.commands.CMD_Warp;
+import alpsbte.warp.main.core.EventListener;
+import alpsbte.warp.main.core.database.DatabaseConnection;
+import alpsbte.warp.main.core.system.Warp;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Level;
 
 public final class Main extends JavaPlugin {
-
-
-
-    private File createWarpList;
-    public YamlConfiguration warpList;
-
-    private File createConfig;
-    public YamlConfiguration config;
-
-
     private static Main plugin;
+    public YamlConfiguration config;
+    private static HashMap<Location, String> warpPlateList;
 
     @Override
     public void onEnable() {
         plugin = this;
 
-        // Set Commands
-        getCommand("warp").setExecutor(new CMD_WarpCommand());
-        getCommand("setwarp").setExecutor(new CMD_SetWarpCommand());
-        getCommand("delwarp").setExecutor(new CMD_DelWarpCommand());
+        // Register Commands
+        getCommand("warp").setExecutor(new CMD_Warp());
+        getCommand("setwarp").setExecutor(new CMD_SetWarp());
+        getCommand("delwarp").setExecutor(new CMD_DelWarp());
 
-        createWarpList("warps.yml");
+        // Register Event Listeners
+        getServer().getPluginManager().registerEvents(new EventListener(), this);
+
         createConfig("config.yml");
-        try {
-            warpList.load(createWarpList);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
 
         // Initialize database connection
         try {
@@ -55,26 +48,13 @@ public final class Main extends JavaPlugin {
             return;
         }
 
+        warpPlateList = Warp.getWarpPlates();
+
         Bukkit.getLogger().log(Level.INFO,"AlpsBTE Warp Plugin loaded!");
     }
 
-    private void createWarpList(String s) {
-        createWarpList = new File(getDataFolder(), "warps.yml");
-        if (!createWarpList.exists()) {
-            createWarpList.getParentFile().mkdirs();
-            saveResource("warps.yml", false);
-        }
-
-        warpList = new YamlConfiguration();
-        try {
-            warpList.load(createWarpList);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void createConfig(String s) {
-        createConfig = new File(getDataFolder(), "config.yml");
+        File createConfig = new File(getDataFolder(), "config.yml");
         if (!createConfig.exists()) {
             createConfig.getParentFile().mkdirs();
             saveResource("config.yml", false);
@@ -91,4 +71,6 @@ public final class Main extends JavaPlugin {
     public static Main getPlugin() {
         return plugin;
     }
+
+    public static HashMap<Location, String> getWarpPlateList() { return warpPlateList; }
 }

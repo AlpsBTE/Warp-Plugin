@@ -1,7 +1,7 @@
 package alpsbte.warp.main.commands;
 
 import alpsbte.warp.main.Main;
-import alpsbte.warp.main.core.Warp;
+import alpsbte.warp.main.core.system.Warp;
 import alpsbte.warp.main.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 import java.util.logging.Level;
 
-public class CMD_WarpCommand implements CommandExecutor {
+public class CMD_Warp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("warp")) {

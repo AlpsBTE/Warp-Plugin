@@ -1,4 +1,4 @@
-package alpsbte.warp.main.core;
+package alpsbte.warp.main.core.database;
 
 import alpsbte.warp.main.Main;
 import com.zaxxer.hikari.HikariConfig;

@@ -1,11 +1,14 @@
-package alpsbte.warp.main.core;
+package alpsbte.warp.main.core.system;
 
+import alpsbte.warp.main.core.database.DatabaseConnection;
+import alpsbte.warp.main.core.system.Country;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 
 public class Warp {
@@ -38,7 +41,7 @@ public class Warp {
             // get correct case name
             correctName = rsWarp.getString(8);
         } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting state data from database!", throwables);
+            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp data from database!", throwables);
         }
 
         this.name = correctName;
@@ -60,7 +63,7 @@ public class Warp {
         try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT 1 FROM warps WHERE name = ?").setValue(name).executeQuery()) {
             return rsWarp.next();
         } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting state warp from database!", throwables);
+            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp data from database!", throwables);
         }
         return false;
     }
@@ -87,5 +90,28 @@ public class Warp {
         }catch (SQLException throwables) {
             Bukkit.getLogger().log(Level.SEVERE,"An error occurred while removing a warp from the database!", throwables);
         }
+    }
+
+    public static HashMap<Location, String> getWarpPlates() {
+        HashMap<Location, String> plateList = new HashMap<>();
+
+        // Get Values from Database
+        try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT world, plate_x, plate_y, plate_z, name FROM warps " +
+                "WHERE NOT plate_x=0 AND NOT plate_y=0 AND NOT plate_z=0").executeQuery()) {
+            while (rsWarp.next()) {
+                Location plateLocation = new Location(
+                        Bukkit.getWorld(rsWarp.getString(1)),
+                        rsWarp.getDouble("2"),
+                        rsWarp.getDouble("3"),
+                        rsWarp.getDouble("4"));
+
+                plateList.put(plateLocation, rsWarp.getString("5"));
+            }
+            Bukkit.getLogger().log(Level.INFO, "Successfully cached WarpPlate List!");
+        } catch (SQLException throwables) {
+            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp plate data from database!", throwables);
+        }
+
+        return plateList;
     }
 }

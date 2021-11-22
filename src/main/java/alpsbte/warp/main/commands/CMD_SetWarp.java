@@ -1,7 +1,7 @@
 package alpsbte.warp.main.commands;
 
 import alpsbte.warp.main.Main;
-import alpsbte.warp.main.core.Warp;
+import alpsbte.warp.main.core.system.Warp;
 import alpsbte.warp.main.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -10,16 +10,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.logging.Level;
 
 import static java.lang.Integer.parseInt;
 
-public class CMD_SetWarpCommand implements CommandExecutor {
+public class CMD_SetWarp implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
