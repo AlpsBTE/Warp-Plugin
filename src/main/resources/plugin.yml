@@ -17,4 +17,7 @@ commands:
     description: Delete a warp
     usage: /delwarp <name>
     permission: alpsbte.moderator
-
+  setwarpplate:
+    description: Set a Warp Plate for a given Warp
+    usage: /setwarpplate <warp>
+    permission: alpsbte.moderator

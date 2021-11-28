@@ -2,6 +2,7 @@ package alpsbte.warp.main;
 
 import alpsbte.warp.main.commands.CMD_DelWarp;
 import alpsbte.warp.main.commands.CMD_SetWarp;
+import alpsbte.warp.main.commands.CMD_SetWarpPlate;
 import alpsbte.warp.main.commands.CMD_Warp;
 import alpsbte.warp.main.core.EventListener;
 import alpsbte.warp.main.core.database.DatabaseConnection;
@@ -30,6 +31,7 @@ public final class Main extends JavaPlugin {
         getCommand("warp").setExecutor(new CMD_Warp());
         getCommand("setwarp").setExecutor(new CMD_SetWarp());
         getCommand("delwarp").setExecutor(new CMD_DelWarp());
+        getCommand("setwarpplate").setExecutor(new CMD_SetWarpPlate());
 
         // Register Event Listeners
         getServer().getPluginManager().registerEvents(new EventListener(), this);
