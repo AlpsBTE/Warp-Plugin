@@ -56,6 +56,10 @@ public class Warp {
     public float getPitch() { return pitch; }
     public World getWorld() { return world; }
 
+    public Location getLocation() {
+        return new Location(world, x, y, z, yaw, pitch);
+    }
+
     public Country getCountry() { return country; }
 
     // Static Methods
@@ -96,16 +100,16 @@ public class Warp {
         HashMap<Location, String> plateList = new HashMap<>();
 
         // Get Values from Database
-        try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT world, plate_x, plate_y, plate_z, name FROM warps " +
-                "WHERE NOT plate_x=0 AND NOT plate_y=0 AND NOT plate_z=0").executeQuery()) {
+        //"WHERE NOT plate_x=0 AND NOT plate_y=0 AND NOT plate_z=0"
+        try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT name, world, plate_x, plate_y, plate_z FROM warps").executeQuery()) {
             while (rsWarp.next()) {
                 Location plateLocation = new Location(
-                        Bukkit.getWorld(rsWarp.getString(1)),
-                        rsWarp.getDouble("2"),
-                        rsWarp.getDouble("3"),
-                        rsWarp.getDouble("4"));
+                        Bukkit.getWorld(rsWarp.getString(2)),
+                        rsWarp.getDouble(3),
+                        rsWarp.getDouble(4),
+                        rsWarp.getDouble(5));
 
-                plateList.put(plateLocation, rsWarp.getString("5"));
+                plateList.put(plateLocation, rsWarp.getString(1));
             }
             Bukkit.getLogger().log(Level.INFO, "Successfully cached WarpPlate List!");
         } catch (SQLException throwables) {
