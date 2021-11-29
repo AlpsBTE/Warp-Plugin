@@ -33,6 +33,12 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+
+        <!-- Holographic Displays API -->
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -57,6 +63,14 @@
             <groupId>com.github.shynixn.headdatabase</groupId>
             <artifactId>hdb-api</artifactId>
             <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Holographic Displays API -->
+        <dependency>
+            <groupId>com.gmail.filoghost.holographicdisplays</groupId>
+            <artifactId>holographicdisplays-api</artifactId>
+            <version>2.4.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

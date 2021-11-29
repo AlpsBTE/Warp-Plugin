@@ -75,6 +75,19 @@ public class Warp {
         }
     }
 
+    public void removeWarpPlate() {
+        try {
+            DatabaseConnection.createStatement("UPDATE warps SET plate_x = ?, plate_y = ?, plate_z = ? WHERE name = ?")
+                    .setValue(0)
+                    .setValue(0)
+                    .setValue(0)
+                    .setValue(name)
+                    .executeUpdate();
+        } catch (SQLException throwables) {
+            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while removing a warp plate from the database!", throwables);
+        }
+    }
+
     // Static Methods
     public static boolean exists(String name) {
         try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT 1 FROM warps WHERE name = ?").setValue(name).executeQuery()) {
@@ -122,7 +135,9 @@ public class Warp {
                         rsWarp.getDouble(4),
                         rsWarp.getDouble(5));
 
-                plateList.put(plateLocation, rsWarp.getString(1));
+                if (!plateLocation.equals(new Location(plateLocation.getWorld(), 0, 0, 0))) {
+                    plateList.put(plateLocation, rsWarp.getString(1));
+                }
             }
             Bukkit.getLogger().log(Level.INFO, "Successfully cached WarpPlate List!");
         } catch (SQLException throwables) {

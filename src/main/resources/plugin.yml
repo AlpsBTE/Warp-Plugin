@@ -1,9 +1,10 @@
 name: WarpPlugin
 version: ${project.version}
 main: alpsbte.warp.main.Main
-authors: [ DerHohii ]
+authors: [ AlpsBTE ]
 description: Warp Plugin for AlpsBTE
 website: alps-bte.com
+softdepend: [HolographicDisplays]
 commands:
   warp:
     description: Warp a player to a warp
@@ -20,4 +21,8 @@ commands:
   setwarpplate:
     description: Set a Warp Plate for a given Warp
     usage: /setwarpplate <warp>
+    permission: alpsbte.moderator
+  delwarpplate:
+    description: Delete Warp Plate of a given Warp
+    usage: /delwarpplate <warp>
     permission: alpsbte.moderator
