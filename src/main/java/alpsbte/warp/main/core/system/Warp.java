@@ -62,6 +62,19 @@ public class Warp {
 
     public Country getCountry() { return country; }
 
+    public void addWarpPlate(Location location) {
+        try {
+            DatabaseConnection.createStatement("UPDATE warps SET plate_x = ?, plate_y = ?, plate_z = ? WHERE name = ?")
+                    .setValue(location.getX())
+                    .setValue(location.getY())
+                    .setValue(location.getZ())
+                    .setValue(name)
+                    .executeUpdate();
+        } catch (SQLException throwables) {
+            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while adding a warp plate to the database!", throwables);
+        }
+    }
+
     // Static Methods
     public static boolean exists(String name) {
         try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT 1 FROM warps WHERE name = ?").setValue(name).executeQuery()) {
