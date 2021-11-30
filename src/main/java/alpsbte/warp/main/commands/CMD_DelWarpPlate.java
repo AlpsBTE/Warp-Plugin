@@ -32,7 +32,7 @@ public class CMD_DelWarpPlate implements CommandExecutor {
                                 // Set Blocks to Air
                                 Block[] blocks = new Block[7];
                                 for (int i = 0; i < 7; i++) {
-                                    blocks[i] = p.getWorld().getBlockAt(p.getLocation().add(0,i,0));
+                                    blocks[i] = p.getWorld().getBlockAt(warp.getPlateLocation().add(0,i,0));
                                     blocks[i].setType(Material.AIR);
                                 }
 

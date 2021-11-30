@@ -88,6 +88,23 @@ public class Warp {
         }
     }
 
+    public Location getPlateLocation() {
+        Location location = null;
+        try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT name, world, plate_x, plate_y, plate_z FROM warps WHERE name = ?").setValue(name).executeQuery()) {
+            rsWarp.next();
+
+            location = new Location(
+                    Bukkit.getWorld(rsWarp.getString(2)),
+                    rsWarp.getDouble(3),
+                    rsWarp.getDouble(4),
+                    rsWarp.getDouble(5)
+            );
+        } catch (SQLException throwables) {
+            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp plate data from database!", throwables);
+        }
+        return location;
+    }
+
     // Static Methods
     public static boolean exists(String name) {
         try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT 1 FROM warps WHERE name = ?").setValue(name).executeQuery()) {
