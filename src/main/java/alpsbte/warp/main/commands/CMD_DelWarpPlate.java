@@ -26,16 +26,24 @@ public class CMD_DelWarpPlate implements CommandExecutor {
                         if (Warp.exists(args[0])) {
                             // Remove Warp Plate from database
                             Warp warp = new Warp(args[0]);
-                            warp.removeWarpPlate();
+                            if(Main.getWarpPlateList().containsValue(warp.getName())) {
+                                warp.removeWarpPlate();
 
-                            // Set Blocks to Air
-                            Block[] blocks = new Block[7];
-                            for (int i = 0; i < 7; i++) {
-                                blocks[i] = p.getWorld().getBlockAt(p.getLocation().add(0,i,0));
-                                blocks[i].setType(Material.AIR);
+                                // Set Blocks to Air
+                                Block[] blocks = new Block[7];
+                                for (int i = 0; i < 7; i++) {
+                                    blocks[i] = p.getWorld().getBlockAt(p.getLocation().add(0,i,0));
+                                    blocks[i].setType(Material.AIR);
+                                }
+
+                                //Remove Holograms
+                                if (Main.getHologramList().containsKey(warp.getName())) {
+                                    Main.getHologramList().get(warp.getName()).delete();
+                                    Main.getHologramList().remove(warp.getName());
+                                }
+                            } else {
+                                p.sendMessage(Utils.getErrorMessageFormat("Could not find warp plate for warp " + warp.getName()));
                             }
-
-                            //TODO: Remove Hologram
                         } else {
                             p.sendMessage(Utils.getErrorMessageFormat("Could not find warp " + args[0] + "!"));
                         }

@@ -3,7 +3,10 @@ package alpsbte.warp.main.commands;
 import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.system.Warp;
 import alpsbte.warp.main.utils.Utils;
+import com.gmail.filoghost.holographicdisplays.api.Hologram;
+import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -43,8 +46,21 @@ public class CMD_SetWarpPlate implements CommandExecutor {
                             blocks[5].setType(Material.COBBLE_WALL);
                             blocks[6].setType(Material.IRON_FENCE);
 
+                            //Set Hologram
+                            Location hologramLocation = new Location(
+                                    p.getLocation().getWorld(),
+                                    Math.floor(p.getLocation().getX()) + 0.5,
+                                    Math.floor(p.getLocation().getY()) + 1.5,
+                                    Math.floor(p.getLocation().getZ()) + 0.5);
 
-                            //TODO: Hologram
+                            Hologram hologram = HologramsAPI.createHologram(Main.getPlugin(),hologramLocation);
+                            hologram.insertTextLine(0, "§a§l" + warp.getName().toUpperCase());
+
+                            if (Main.getHologramList().containsKey(warp.getName())) {
+                                Main.getHologramList().get(warp.getName()).delete();
+                                Main.getHologramList().remove(warp.getName());
+                            }
+                            Main.getHologramList().put(warp.getName(),hologram);
                         } else {
                             p.sendMessage(Utils.getErrorMessageFormat("Could not find warp " + args[0] + "!"));
                         }
