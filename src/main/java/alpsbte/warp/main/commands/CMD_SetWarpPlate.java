@@ -55,12 +55,6 @@ public class CMD_SetWarpPlate implements CommandExecutor {
 
                             Hologram hologram = HologramsAPI.createHologram(Main.getPlugin(),hologramLocation);
                             hologram.insertTextLine(0, "§a§l" + warp.getName().toUpperCase());
-
-                            if (Main.getHologramList().containsKey(warp.getName())) {
-                                Main.getHologramList().get(warp.getName()).delete();
-                                Main.getHologramList().remove(warp.getName());
-                            }
-                            Main.getHologramList().put(warp.getName(),hologram);
                         } else {
                             p.sendMessage(Utils.getErrorMessageFormat("Could not find warp " + args[0] + "!"));
                         }

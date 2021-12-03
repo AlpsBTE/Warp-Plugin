@@ -3,7 +3,9 @@ package alpsbte.warp.main.commands;
 import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.system.Warp;
 import alpsbte.warp.main.utils.Utils;
+import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -36,10 +38,18 @@ public class CMD_DelWarpPlate implements CommandExecutor {
                                     blocks[i].setType(Material.AIR);
                                 }
 
+                                // Get HologramLocation
+                                Location hologramLocation = new Location(
+                                        p.getLocation().getWorld(),
+                                        Math.floor(p.getLocation().getX()) + 0.5,
+                                        Math.floor(p.getLocation().getY()) + 1.5,
+                                        Math.floor(p.getLocation().getZ()) + 0.5);
+
                                 //Remove Holograms
-                                if (Main.getHologramList().containsKey(warp.getName())) {
-                                    Main.getHologramList().get(warp.getName()).delete();
-                                    Main.getHologramList().remove(warp.getName());
+                                if (HologramsAPI.getHolograms(Main.getPlugin()).stream().anyMatch(h -> h.getLocation().equals(hologramLocation))) {
+                                    HologramsAPI.getHolograms(Main.getPlugin()).stream()
+                                            .filter(h -> h.getLocation().equals(hologramLocation))
+                                            .findFirst().get().delete();
                                 }
                             } else {
                                 p.sendMessage(Utils.getErrorMessageFormat("Could not find warp plate for warp " + warp.getName()));

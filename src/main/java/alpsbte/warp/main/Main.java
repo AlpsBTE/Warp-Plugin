@@ -24,7 +24,6 @@ public final class Main extends JavaPlugin {
     private static Main plugin;
     public YamlConfiguration config;
     private static HashMap<Location, String> warpPlateList;
-    private static HashMap<String, Hologram> hologramList;
 
     @Override
     public void onEnable() {
@@ -94,7 +93,6 @@ public final class Main extends JavaPlugin {
 
             Hologram hologram = HologramsAPI.createHologram(plugin,hologramLocation);
             hologram.insertTextLine(0, "§a§l" + value.toUpperCase());
-            hologramList.put(value,hologram);
         }
     }
 
@@ -103,6 +101,4 @@ public final class Main extends JavaPlugin {
     }
 
     public static HashMap<Location, String> getWarpPlateList() { return warpPlateList; }
-
-    public static HashMap<String, Hologram> getHologramList() { return hologramList; }
 }
