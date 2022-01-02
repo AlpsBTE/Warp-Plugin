@@ -1,4 +1,4 @@
-package alpsbte.warp.main.commands;
+package alpsbte.warp.main.commands.Warp;
 
 import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.system.Warp;
@@ -31,6 +31,8 @@ public class CMD_SetWarpPlate implements CommandExecutor {
                             Warp warp = new Warp(args[0]);
                             warp.addWarpPlate(p.getLocation());
 
+                            Main.getWarpPlateList().put(p.getLocation(),warp.getName());
+
                             // Set Blocks
                             Block[] blocks = new Block[7];
 
@@ -55,6 +57,8 @@ public class CMD_SetWarpPlate implements CommandExecutor {
 
                             Hologram hologram = HologramsAPI.createHologram(Main.getPlugin(),hologramLocation);
                             hologram.insertTextLine(0, "§a§l" + warp.getName().toUpperCase());
+
+                            p.sendMessage(Utils.getInfoMessageFormat("Successfully placed warp plate for warp " + warp.getName() + "!"));
                         } else {
                             p.sendMessage(Utils.getErrorMessageFormat("Could not find warp " + args[0] + "!"));
                         }

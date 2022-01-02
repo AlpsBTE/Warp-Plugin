@@ -4,6 +4,8 @@ database:
   username: ""
   password: ""
 
+homes:
+  limit: 10
 
 messages:
   explain_to_console_why_you_cant_warp_a_console: "§cWTF, wie stellst du dir vor die Konsole zu Warpen?? What?"

@@ -1,18 +1,19 @@
 package alpsbte.warp.main;
 
-import alpsbte.warp.main.commands.*;
+import alpsbte.warp.main.commands.Home.CMD_DelHome;
+import alpsbte.warp.main.commands.Home.CMD_Home;
+import alpsbte.warp.main.commands.Home.CMD_HomeList;
+import alpsbte.warp.main.commands.Home.CMD_SetHome;
+import alpsbte.warp.main.commands.Warp.*;
 import alpsbte.warp.main.core.EventListener;
 import alpsbte.warp.main.core.database.DatabaseConnection;
 import alpsbte.warp.main.core.system.Warp;
-import alpsbte.warp.main.utils.Utils;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -42,6 +43,10 @@ public final class Main extends JavaPlugin {
         getCommand("delwarp").setExecutor(new CMD_DelWarp());
         getCommand("setwarpplate").setExecutor(new CMD_SetWarpPlate());
         getCommand("delwarpplate").setExecutor(new CMD_DelWarpPlate());
+        getCommand("home").setExecutor(new CMD_Home());
+        getCommand("sethome").setExecutor(new CMD_SetHome());
+        getCommand("delhome").setExecutor(new CMD_DelHome());
+        getCommand("homes").setExecutor(new CMD_HomeList());
 
         // Register Event Listeners
         getServer().getPluginManager().registerEvents(new EventListener(), this);

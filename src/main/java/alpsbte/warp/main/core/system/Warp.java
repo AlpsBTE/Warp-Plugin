@@ -36,7 +36,7 @@ public class Warp {
             yaw = rsWarp.getFloat(4);
             pitch = rsWarp.getFloat(5);
             world = Bukkit.getWorld(rsWarp.getString(6));
-            country = new Country(rsWarp.getInt(7));
+            //country = new Country(rsWarp.getInt(7));
 
             // get correct case name
             correctName = rsWarp.getString(8);

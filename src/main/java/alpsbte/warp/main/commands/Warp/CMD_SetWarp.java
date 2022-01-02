@@ -1,4 +1,4 @@
-package alpsbte.warp.main.commands;
+package alpsbte.warp.main.commands.Warp;
 
 import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.system.Warp;
@@ -12,24 +12,26 @@ import org.bukkit.entity.Player;
 
 import java.util.logging.Level;
 
+import static java.lang.Integer.parseInt;
 
-public class CMD_DelWarp implements CommandExecutor {
+public class CMD_SetWarp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("delwarp")) {
+
+        if (command.getName().equalsIgnoreCase("setwarp")) {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
 
                 if (p.hasPermission("alpsbte.moderator")) {
                     if (args.length == 1) {
-                        if (Warp.exists(args[0])) {
-                            Warp.removeWarp(args[0]);
-                            p.sendMessage(Utils.getInfoMessageFormat("Successfully removed warp " + args[0] + "!"));
+                        if (!Warp.exists(args[0])) {
+                            Warp.addWarp(args[0], p.getLocation());
+                            p.sendMessage(Utils.getInfoMessageFormat("Successfully added warp with name " + args[0]));
                         } else {
-                            p.sendMessage(Utils.getErrorMessageFormat("Could not find warp " + args[0] + "!"));
+                            p.sendMessage(Utils.getErrorMessageFormat("Warp already exists!"));
                         }
                     } else {
-                        p.sendMessage(Utils.getErrorMessageFormat("Incorrect input! Try /delwarp <name>"));
+                        p.sendMessage(Utils.getErrorMessageFormat("Incorrect input! Try /setwarp <name>"));
                     }
                 } else {
                     p.sendMessage(Utils.getErrorMessageFormat("No permission!"));
@@ -41,7 +43,4 @@ public class CMD_DelWarp implements CommandExecutor {
         }
         return true;
     }
-
 }
-
-

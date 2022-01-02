@@ -26,3 +26,19 @@ commands:
     description: Delete Warp Plate of a given Warp
     usage: /delwarpplate <warp>
     permission: alpsbte.moderator
+  home:
+    description: Teleport to a home
+    usage: /home <name>
+    permission: alpsbte.home
+  sethome:
+    description: Set a home
+    usage: /sethome <name>
+    permission: alpsbte.home
+  delhome:
+    description: Delete a home
+    usage: /delhome <name>
+    permission: alpsbte.home
+  homes:
+    description: list all your homes
+    usage: /homes
+    permission: alpsbte.home

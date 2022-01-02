@@ -1,4 +1,4 @@
-package alpsbte.warp.main.commands;
+package alpsbte.warp.main.commands.Warp;
 
 import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.system.Warp;
