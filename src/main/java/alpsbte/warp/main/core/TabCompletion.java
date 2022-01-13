@@ -6,8 +6,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TabCompletion implements TabCompleter {
@@ -19,8 +21,10 @@ public class TabCompletion implements TabCompleter {
             p = (Player)commandSender;
         } else { return null; }
 
-        if (command.getName().equals("warp") && strings.length <= 1) {
+        if (command.getName().equals("warp") && strings.length == 1) {
             suggestionList = Main.getWarpTabCompletionList();
+            StringUtil.copyPartialMatches(strings[0], suggestionList, suggestionList);
+            Collections.sort(suggestionList);
         } else if (command.getName().equals("home") && strings.length <= 1) {
             for (Home home : Home.getHomeList(p.getUniqueId().toString())) {
                 suggestionList.add(home.getName());
