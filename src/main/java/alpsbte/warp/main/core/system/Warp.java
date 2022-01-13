@@ -8,7 +8,9 @@ import org.bukkit.World;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
 public class Warp {
@@ -162,5 +164,19 @@ public class Warp {
         }
 
         return plateList;
+    }
+
+    public static List<String> getTabCompletionList() {
+        List<String> list = new ArrayList<>();
+        try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT name FROM warps").executeQuery()) {
+            while (rsWarp.next()) {
+                list.add(rsWarp.getString(1));
+            }
+            Bukkit.getLogger().log(Level.INFO, "Successfully cached warp tab completion List!");
+        } catch (SQLException throwables) {
+            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp data from database!", throwables);
+        }
+
+        return list;
     }
 }

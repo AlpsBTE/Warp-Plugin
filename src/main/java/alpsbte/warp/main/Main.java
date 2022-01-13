@@ -6,6 +6,7 @@ import alpsbte.warp.main.commands.Home.CMD_HomeList;
 import alpsbte.warp.main.commands.Home.CMD_SetHome;
 import alpsbte.warp.main.commands.Warp.*;
 import alpsbte.warp.main.core.EventListener;
+import alpsbte.warp.main.core.TabCompletion;
 import alpsbte.warp.main.core.database.DatabaseConnection;
 import alpsbte.warp.main.core.system.Warp;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
@@ -19,12 +20,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
 public final class Main extends JavaPlugin {
     private static Main plugin;
     public YamlConfiguration config;
     private static HashMap<Location, String> warpPlateList;
+    private static List<String> warpTabCompletionList;
 
     @Override
     public void onEnable() {
@@ -48,6 +51,9 @@ public final class Main extends JavaPlugin {
         getCommand("delhome").setExecutor(new CMD_DelHome());
         getCommand("homes").setExecutor(new CMD_HomeList());
 
+        // Register Tab Completion
+        getCommand("warp").setTabCompleter(new TabCompletion());
+
         // Register Event Listeners
         getServer().getPluginManager().registerEvents(new EventListener(), this);
 
@@ -66,6 +72,7 @@ public final class Main extends JavaPlugin {
         }
 
         warpPlateList = Warp.getWarpPlates();
+        warpTabCompletionList = Warp.getTabCompletionList();
 
         setHolograms();
 
@@ -106,4 +113,5 @@ public final class Main extends JavaPlugin {
     }
 
     public static HashMap<Location, String> getWarpPlateList() { return warpPlateList; }
+    public static List<String> getWarpTabCompletionList() { return warpTabCompletionList; }
 }

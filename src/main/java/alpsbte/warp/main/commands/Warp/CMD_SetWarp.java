@@ -26,6 +26,7 @@ public class CMD_SetWarp implements CommandExecutor {
                     if (args.length == 1) {
                         if (!Warp.exists(args[0])) {
                             Warp.addWarp(args[0], p.getLocation());
+                            Main.getWarpTabCompletionList().add(args[0]);
                             p.sendMessage(Utils.getInfoMessageFormat("Successfully added warp with name " + args[0]));
                         } else {
                             p.sendMessage(Utils.getErrorMessageFormat("Warp already exists!"));

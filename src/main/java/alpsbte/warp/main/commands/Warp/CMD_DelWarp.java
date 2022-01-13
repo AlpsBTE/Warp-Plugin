@@ -24,6 +24,7 @@ public class CMD_DelWarp implements CommandExecutor {
                     if (args.length == 1) {
                         if (Warp.exists(args[0])) {
                             Warp.removeWarp(args[0]);
+                            Main.getWarpTabCompletionList().remove(args[0]);
                             p.sendMessage(Utils.getInfoMessageFormat("Successfully removed warp " + args[0] + "!"));
                         } else {
                             p.sendMessage(Utils.getErrorMessageFormat("Could not find warp " + args[0] + "!"));
