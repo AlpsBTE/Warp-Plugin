@@ -6,26 +6,27 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TabCompletion implements TabCompleter {
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        List<String> suggestionList = new ArrayList<>();
-        Player p;
-        if (commandSender instanceof Player) {
-            p = (Player)commandSender;
-        } else { return null; }
+    public List<String> onTabComplete(CommandSender sender, Command command, String s, String[] args) {
+        if (!(sender instanceof Player)) return null;
+        Player player = (Player) sender;
 
-        if (command.getName().equals("warp") && strings.length <= 1) {
-            suggestionList = Main.getWarpTabCompletionList();
-        } else if (command.getName().equals("home") && strings.length <= 1) {
-            for (Home home : Home.getHomeList(p.getUniqueId().toString())) {
-                suggestionList.add(home.getName());
-            }
+        final List<String> completions = new ArrayList<>();
+        if (command.getName().equalsIgnoreCase("warp") && args.length <= 1) {
+            StringUtil.copyPartialMatches(args[0], Main.getWarpTabCompletionList(), completions);
+            Collections.sort(completions);
+        } else if (command.getName().equalsIgnoreCase("home") && args.length <= 1) {
+            List<String> homes = new ArrayList<>();
+            Home.getHomeList(player.getUniqueId().toString()).forEach(home -> homes.add(home.getName()));
+            StringUtil.copyPartialMatches(args[0], homes, completions);
         }
-        return suggestionList;
+        return completions;
     }
 }
