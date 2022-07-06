@@ -14,6 +14,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.material.MaterialData;
 
 import java.util.logging.Level;
 
@@ -40,13 +41,13 @@ public class CMD_SetWarpPlate implements CommandExecutor {
                                 blocks[i] = p.getWorld().getBlockAt(p.getLocation().add(0,i,0));
                             }
 
-                            blocks[0].setType(Material.GOLD_PLATE);
+                            blocks[0].setType(Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
                             blocks[1].setType(Material.AIR);
-                            blocks[2].setTypeIdAndData(160,(byte) 14,true);
+                            blocks[2].setType(Material.RED_STAINED_GLASS_PANE);
                             blocks[3].setType(Material.HOPPER);
                             blocks[4].setType(Material.ANVIL);
-                            blocks[5].setType(Material.COBBLE_WALL);
-                            blocks[6].setType(Material.IRON_FENCE);
+                            blocks[5].setType(Material.COBBLESTONE_WALL);
+                            blocks[6].setType(Material.IRON_BARS);
 
                             //Set Hologram
                             Location hologramLocation = new Location(

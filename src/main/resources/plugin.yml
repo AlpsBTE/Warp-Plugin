@@ -2,6 +2,7 @@ name: WarpPlugin
 version: ${project.version}
 main: alpsbte.warp.main.Main
 authors: [ AlpsBTE ]
+api-version: 1.18
 description: Warp Plugin for AlpsBTE
 website: alps-bte.com
 softdepend: [HolographicDisplays]

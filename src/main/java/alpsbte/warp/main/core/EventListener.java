@@ -15,7 +15,7 @@ public class EventListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         // Check if interacted block is gold pressure plate
         if (event.getAction() == Action.PHYSICAL) {
-            if (event.getClickedBlock().getType() == Material.GOLD_PLATE) {
+            if (event.getClickedBlock().getType() == Material.LIGHT_WEIGHTED_PRESSURE_PLATE) {
                 Location blockLocation = event.getClickedBlock().getLocation();
 
                 //Check Location

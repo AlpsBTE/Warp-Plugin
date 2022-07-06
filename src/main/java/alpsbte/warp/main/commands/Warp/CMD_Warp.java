@@ -28,7 +28,7 @@ public class CMD_Warp implements CommandExecutor {
                             // Teleport
                             p.teleport(warp.getLocation());
                             p.sendMessage(Utils.getInfoMessageFormat("Welcome to " + warp.getName()));
-                            p.playSound(p.getLocation(),Sound.ENTITY_ENDERMEN_TELEPORT, SoundCategory.MASTER, 1,1);
+                            p.playSound(p.getLocation(),Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.MASTER, 1,1);
                             p.sendTitle("§5§l" + warp.getName(), "§7Welcome!", 5, 40, 10);
                         } else {
                             p.sendMessage(Utils.getErrorMessageFormat("Could not find the specified warp!"));

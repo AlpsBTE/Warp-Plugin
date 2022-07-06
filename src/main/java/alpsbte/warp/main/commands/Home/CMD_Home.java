@@ -25,7 +25,7 @@ public class CMD_Home implements CommandExecutor {
                             // Teleport
                             p.teleport(home.getLocation());
                             p.sendMessage(Utils.getInfoMessageFormat("Teleported to " + home.getName()));
-                            p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, SoundCategory.MASTER, 1,1);
+                            p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.MASTER, 1,1);
                         } else {
                             p.sendMessage(Utils.getErrorMessageFormat("Could not find the specified home!"));
                         }

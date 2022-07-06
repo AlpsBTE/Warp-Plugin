@@ -9,7 +9,7 @@ public class Utils {
     public static HeadDatabaseAPI headDatabaseAPI;
 
     public static ItemStack getItemHead(String headID) {
-        return headDatabaseAPI != null && headID != null ? headDatabaseAPI.getItemHead(headID) : new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).build();
+        return headDatabaseAPI != null && headID != null ? headDatabaseAPI.getItemHead(headID) : new ItemBuilder(Material.PLAYER_HEAD, 1, (byte) 3).build();
     }
 
     // Player Messages
