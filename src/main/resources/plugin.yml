@@ -4,7 +4,8 @@ main: alpsbte.warp.main.Main
 authors: [ AlpsBTE ]
 description: Warp Plugin for AlpsBTE
 website: alps-bte.com
-softdepend: [HolographicDisplays]
+softdepend: [DecentHolograms]
+api-version: 1.20
 commands:
   warp:
     description: Warp a player to a warp

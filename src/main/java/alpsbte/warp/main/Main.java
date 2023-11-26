@@ -9,8 +9,6 @@ import alpsbte.warp.main.core.EventListener;
 import alpsbte.warp.main.core.TabCompletion;
 import alpsbte.warp.main.core.database.DatabaseConnection;
 import alpsbte.warp.main.core.system.Warp;
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -33,12 +31,12 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
-        if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
-            getLogger().severe("HolographicDisplays is not installed or not enabled!");
+        /*if (!Bukkit.getPluginManager().isPluginEnabled("DecentHolograms")) {
+            getLogger().severe("DecentHolograms is not installed or not enabled!");
             getLogger().severe("This plugin will be disabled!");
             this.setEnabled(false);
             return;
-        }
+        }*/
 
         // Register Commands
         getCommand("warp").setExecutor(new CMD_Warp());
@@ -103,8 +101,6 @@ public final class Main extends JavaPlugin {
                     Math.floor(key.getY()) + 1.5,
                     Math.floor(key.getZ()) + 0.5);
 
-            Hologram hologram = HologramsAPI.createHologram(plugin,hologramLocation);
-            hologram.insertTextLine(0, "§a§l" + value.toUpperCase());
         }
     }
 
