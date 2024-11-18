@@ -15,36 +15,38 @@ import java.util.logging.Level;
 public class CMD_Warp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("warp")) {
-            if (sender instanceof Player) {
-                Player p = (Player) sender;
+        if (!(sender instanceof Player)) return true;
+        Player p = (Player) sender;
 
-                if (p.hasPermission("alpsbte.warp")) {
-                    if (args.length == 1) {
-                        if (Warp.exists(args[0])) {
-                            // Get warp
-                            Warp warp = new Warp(args[0]);
-
-                            // Teleport
-                            p.teleport(warp.getLocation());
-                            p.sendMessage(Utils.getInfoMessageFormat("Welcome to " + warp.getName()));
-                            p.playSound(p.getLocation(),Sound.ENTITY_ENDERMEN_TELEPORT, SoundCategory.MASTER, 1,1);
-                            p.sendTitle("§5§l" + warp.getName(), "§7Welcome!", 5, 40, 10);
-                        } else {
-                            p.sendMessage(Utils.getErrorMessageFormat("Could not find the specified warp!"));
-                        }
-                    } else {
-                        p.sendMessage(Utils.getErrorMessageFormat("Incorrect input! Try /warp <name>"));
-                    }
-                } else {
-                    p.sendMessage(Utils.getErrorMessageFormat("No permission!"));
-                }
-            }  else {
-                // fine i'll leave this here @Hohi...
-                YamlConfiguration config = Main.getPlugin().config;
-                Bukkit.getLogger().log(Level.SEVERE, config.getString("messages.explain_to_console_why_you_cant_warp_a_console"));
-            }
+        if (!p.hasPermission("alpsbte.warp")) {
+            p.sendMessage(Utils.getErrorMessageFormat("No permission!"));
+            return true;
         }
+
+        if (args.length != 1) {
+            p.sendMessage(Utils.getErrorMessageFormat("Incorrect input! Try /warp <name>"));
+            return true;
+        }
+
+        if (!Warp.exists(args[0])) {
+            p.sendMessage(Utils.getErrorMessageFormat("Could not find the specified warp!"));
+            return true;
+        }
+
+        // Get warp
+        Warp warp = new Warp(args[0]);
+
+        Location location = warp.getLocation();
+        if (location.getWorld() == null) {
+            p.sendMessage(Utils.getErrorMessageFormat("Could not teleport to this warp! This server is currently unavailable!"));
+            return true;
+        }
+
+        // Teleport
+        p.teleport(warp.getLocation());
+        p.sendMessage(Utils.getInfoMessageFormat("Welcome to " + warp.getName()));
+        p.playSound(p.getLocation(),Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.MASTER, 1,1);
+        p.sendTitle("§5§l" + warp.getName(), "§7Welcome!", 5, 40, 10);
         return true;
     }
 }

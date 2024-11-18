@@ -9,17 +9,17 @@ public class Utils {
     public static HeadDatabaseAPI headDatabaseAPI;
 
     public static ItemStack getItemHead(String headID) {
-        return headDatabaseAPI != null && headID != null ? headDatabaseAPI.getItemHead(headID) : new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).build();
+        return headDatabaseAPI != null && headID != null ? headDatabaseAPI.getItemHead(headID) : new ItemBuilder(Material.SKELETON_SKULL, 1, (byte) 3).build();
     }
 
     // Player Messages
-    private static final String messagePrefix = "§7§l>> ";
+    private static final String messagePrefix = "\uE13B §7§l» ";
 
     public static String getInfoMessageFormat(String info) {
-        return messagePrefix + "§a" + info;
+        return "\uE13B §8» §a" + info;
     }
 
     public static String getErrorMessageFormat(String error) {
-        return messagePrefix + "§c" + error;
+        return "\uE13A §8» §c" + error;
     }
 }
