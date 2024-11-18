@@ -3,8 +3,8 @@ package alpsbte.warp.main.commands.Warp;
 import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.system.Warp;
 import alpsbte.warp.main.utils.Utils;
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import eu.decentsoftware.holograms.api.DHAPI;
+import eu.decentsoftware.holograms.api.holograms.Hologram;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,7 +15,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.Objects;
 import java.util.logging.Level;
 
 public class CMD_DelWarpPlate implements CommandExecutor {
@@ -49,11 +48,9 @@ public class CMD_DelWarpPlate implements CommandExecutor {
                                         Math.floor(warp.getPlateLocation().getZ()) + 0.5);
 
                                 //Remove Holograms
-                                if (HologramsAPI.getHolograms(Main.getPlugin()).stream().anyMatch(h -> h.getLocation().equals(hologramLocation))) {
-                                    Objects.requireNonNull(HologramsAPI.getHolograms(Main.getPlugin()).stream()
-                                            .filter(h -> h.getLocation().equals(hologramLocation))
-                                            .findFirst().orElse(null)).delete();
-                                }
+                                Hologram holo = DHAPI.getHologram("warp_" + args[0]
+                                        .replaceAll("[^a-zA-Z0-9_-]", ""));
+                                if (holo != null) holo.delete();
 
                                 // Remove from database
                                 warp.removeWarpPlate();

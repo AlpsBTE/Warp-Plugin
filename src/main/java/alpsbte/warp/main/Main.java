@@ -9,8 +9,7 @@ import alpsbte.warp.main.core.EventListener;
 import alpsbte.warp.main.core.TabCompletion;
 import alpsbte.warp.main.core.database.DatabaseConnection;
 import alpsbte.warp.main.core.system.Warp;
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import eu.decentsoftware.holograms.api.DHAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -19,6 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,8 +33,8 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
-        if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
-            getLogger().severe("HolographicDisplays is not installed or not enabled!");
+        if (!Bukkit.getPluginManager().isPluginEnabled("DecentHolograms")) {
+            getLogger().severe("DecentHolograms is not installed or not enabled!");
             getLogger().severe("This plugin will be disabled!");
             this.setEnabled(false);
             return;
@@ -103,8 +103,11 @@ public final class Main extends JavaPlugin {
                     Math.floor(key.getY()) + 1.5,
                     Math.floor(key.getZ()) + 0.5);
 
-            Hologram hologram = HologramsAPI.createHologram(plugin,hologramLocation);
-            hologram.insertTextLine(0, "§a§l" + value.toUpperCase());
+            DHAPI.createHologram("warp_" + value.replaceAll("[^a-zA-Z0-9_-]", ""),
+                    hologramLocation, false,
+                    Collections.singletonList(
+                            "§a§l" + value.toUpperCase()
+                    ));
         }
     }
 

@@ -44,9 +44,9 @@ public class ItemBuilder {
 
     public ItemBuilder setEnchantment(boolean setEnchanted) {
         if(setEnchanted) {
-            itemMeta.addEnchant(Enchantment.ARROW_DAMAGE,1,true);
+            itemMeta.addEnchant(Enchantment.POWER,1,true);
         } else {
-            itemMeta.removeEnchant(Enchantment.ARROW_DAMAGE);
+            itemMeta.removeEnchant(Enchantment.POWER);
         }
         return this;
     }
