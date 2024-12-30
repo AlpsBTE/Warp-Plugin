@@ -17,11 +17,10 @@ public class CMD_HomeList implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("homes")) {
-            if (sender instanceof Player) {
-                Player p = (Player) sender;
+            if (sender instanceof Player p) {
                 if (p.hasPermission("alpsbte.home")) {
                     List<Home> homeList = Home.getHomeList(p.getUniqueId().toString());
-                    if (homeList.size() == 0) {
+                    if (homeList.isEmpty()) {
                         p.sendMessage(Utils.getErrorMessageFormat("You dont have have any homes! Set some with /sethome <name>"));
                         return true;
                     }

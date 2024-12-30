@@ -2,7 +2,6 @@ package alpsbte.warp.main.commands.Home;
 
 import alpsbte.warp.main.core.system.Home;
 import alpsbte.warp.main.utils.Utils;
-import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.command.Command;
@@ -13,8 +12,7 @@ import org.bukkit.entity.Player;
 public class CMD_Home implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player p = (Player) sender;
+        if (!(sender instanceof Player p)) return true;
 
         if (!p.hasPermission("alpsbte.home")) {
             p.sendMessage(Utils.getErrorMessageFormat("No permission!"));

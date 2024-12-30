@@ -15,8 +15,7 @@ import java.util.List;
 public class TabCompletion implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String s, String[] args) {
-        if (!(sender instanceof Player)) return null;
-        Player player = (Player) sender;
+        if (!(sender instanceof Player player)) return null;
 
         final List<String> completions = new ArrayList<>();
         if (command.getName().equalsIgnoreCase("warp") && args.length <= 1) {

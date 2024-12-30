@@ -21,8 +21,7 @@ public class CMD_DelWarpPlate implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("delwarpplate")) {
-            if (sender instanceof Player) {
-                Player p = (Player) sender;
+            if (sender instanceof Player p) {
 
                 if (p.hasPermission("alpsbte.moderator")) {
                     if (args.length == 1) {

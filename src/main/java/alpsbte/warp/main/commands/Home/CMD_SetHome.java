@@ -2,7 +2,6 @@ package alpsbte.warp.main.commands.Home;
 
 import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.system.Home;
-import alpsbte.warp.main.core.system.Warp;
 import alpsbte.warp.main.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -18,8 +17,7 @@ public class CMD_SetHome implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (command.getName().equalsIgnoreCase("sethome")) {
-            if (sender instanceof Player) {
-                Player p = (Player) sender;
+            if (sender instanceof Player p) {
 
                 if (p.hasPermission("alpsbte.home")) {
                     if (args.length == 1) {

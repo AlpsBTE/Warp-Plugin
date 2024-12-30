@@ -2,10 +2,17 @@ name: WarpPlugin
 version: ${project.version}
 main: alpsbte.warp.main.Main
 authors: [ AlpsBTE ]
-api-version: 1.21.1
-description: Warp Plugin for AlpsBTE
-website: alps-bte.com
-softdepend: [DecentHolograms]
+api-version: '1.21'
+description: 'Warp Plugin for AlpsBTE'
+website: 'alps-bte.com'
+
+dependencies:
+  server:
+    DecentHolograms:
+      required: false
+      load: AFTER
+      join-classpath: true
+
 commands:
   warp:
     description: Warp a player to a warp

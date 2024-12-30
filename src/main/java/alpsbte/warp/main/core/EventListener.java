@@ -1,7 +1,6 @@
 package alpsbte.warp.main.core;
 
 import alpsbte.warp.main.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -19,7 +18,7 @@ public class EventListener implements Listener {
                 Location blockLocation = event.getClickedBlock().getLocation();
 
                 //Check Location
-                if(Main.getWarpPlateList().size() != 0) {
+                if(!Main.getWarpPlateList().isEmpty()) {
                     for (Location location : Main.getWarpPlateList().keySet()) {
                         if (Math.floor(blockLocation.getBlockX()) == Math.floor(location.getBlockX()) &&
                             Math.floor(blockLocation.getBlockY()) == Math.floor(location.getBlockY()) &&
