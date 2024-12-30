@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class TabCompletion implements TabCompleter {
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String s, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, String @NotNull [] args) {
         if (!(sender instanceof Player player)) return null;
 
         final List<String> completions = new ArrayList<>();

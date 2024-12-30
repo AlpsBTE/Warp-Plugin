@@ -9,10 +9,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class CMD_Warp implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
         if (!(sender instanceof Player p)) return true;
 
         if (!p.hasPermission("alpsbte.warp")) {
@@ -42,7 +43,7 @@ public class CMD_Warp implements CommandExecutor {
         // Teleport
         p.teleport(warp.getLocation());
         p.sendMessage(Utils.getInfoMessageFormat("Welcome to " + warp.getName()));
-        p.playSound(p.getLocation(),Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.MASTER, 1,1);
+        p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.MASTER, 1, 1);
         p.sendTitle("§5§l" + warp.getName(), "§7Welcome!", 5, 40, 10);
         return true;
     }
