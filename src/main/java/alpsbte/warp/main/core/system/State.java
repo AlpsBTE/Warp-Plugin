@@ -1,11 +1,12 @@
 package alpsbte.warp.main.core.system;
 
+import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.database.DatabaseConnection;
-import org.bukkit.Bukkit;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class State {
     private final int ID;
@@ -20,8 +21,8 @@ public class State {
             rsState.next();
             name = rsState.getString(1);
             mainWarpName = rsState.getString(2);
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting state data from database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
     }
 

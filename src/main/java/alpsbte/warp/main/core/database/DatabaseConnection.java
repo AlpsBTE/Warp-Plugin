@@ -3,7 +3,6 @@ package alpsbte.warp.main.core.database;
 import alpsbte.warp.main.Main;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.sql.Connection;
@@ -13,7 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class DatabaseConnection {
     private final static HikariConfig config = new HikariConfig();
@@ -44,8 +44,8 @@ public class DatabaseConnection {
         while (retries > 0) {
             try {
                 return dataSource.getConnection();
-            } catch (SQLException ex) {
-                Bukkit.getLogger().log(Level.SEVERE, "Database connection failed!\n\n" + ex.getMessage());
+            } catch (SQLException e) {
+                Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
             }
             retries--;
         }

@@ -1,5 +1,6 @@
 package alpsbte.warp.main.core.system;
 
+import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.database.DatabaseConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -9,7 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class Home {
     private final String name;
@@ -39,8 +41,8 @@ public class Home {
 
             // get correct case name
             correctName = rsWarp.getString(7);
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting home data from database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
 
         this.name = correctName;
@@ -63,8 +65,8 @@ public class Home {
     public static boolean exists(String name, String uuid) {
         try (ResultSet rsHome = DatabaseConnection.createStatement("SELECT 1 FROM homes WHERE name = ? AND uuid = ?").setValue(name).setValue(uuid).executeQuery()) {
             return rsHome.next();
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting home data from database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
         return false;
     }
@@ -81,16 +83,16 @@ public class Home {
                     .setValue(location.getPitch())
                     .setValue(location.getWorld().getName())
                     .executeUpdate();
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while adding a home to the database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
     }
 
     public static void removeHome(String uuid, String name) {
         try {
             DatabaseConnection.createStatement("DELETE FROM homes WHERE uuid = ? AND name = ?").setValue(uuid).setValue(name).executeUpdate();
-        }catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while removing a home from the database!", throwables);
+        }catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
     }
 
@@ -98,8 +100,8 @@ public class Home {
         try (ResultSet rsHome = DatabaseConnection.createStatement("SELECT COUNT(uuid) FROM homes WHERE uuid = ?").setValue(uuid).executeQuery()) {
             rsHome.next();
             return rsHome.getInt(1);
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting home data from database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
         return 0;
     }
@@ -110,9 +112,9 @@ public class Home {
             while (rsHome.next()) {
                 homeList.add(new Home(rsHome.getString(1),rsHome.getString(2)));
             }
-            Bukkit.getLogger().log(Level.INFO, "Successfully cached WarpPlate List!");
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp plate data from database!", throwables);
+            Main.getPlugin().getComponentLogger().info(text("Successfully cached WarpPlate List!"));
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
         return homeList;
     }

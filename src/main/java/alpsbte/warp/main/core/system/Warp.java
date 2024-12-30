@@ -1,5 +1,6 @@
 package alpsbte.warp.main.core.system;
 
+import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.database.DatabaseConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -10,7 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class Warp {
     private final String name;
@@ -41,27 +43,48 @@ public class Warp {
 
             // get correct case name
             correctName = rsWarp.getString(8);
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp data from database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
 
         this.name = correctName;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public double getX() { return x; }
-    public double getY() { return y; }
-    public double getZ() { return z; }
-    public float getYaw() { return yaw; }
-    public float getPitch() { return pitch; }
-    public World getWorld() { return world; }
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+    public float getYaw() {
+        return yaw;
+    }
+
+    public float getPitch() {
+        return pitch;
+    }
+
+    public World getWorld() {
+        return world;
+    }
 
     public Location getLocation() {
         return new Location(world, x, y, z, yaw, pitch);
     }
 
-    public Country getCountry() { return country; }
+    public Country getCountry() {
+        return country;
+    }
 
     public void addWarpPlate(Location location) {
         try {
@@ -71,8 +94,8 @@ public class Warp {
                     .setValue(location.getZ())
                     .setValue(name)
                     .executeUpdate();
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while adding a warp plate to the database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while updating data from the database!"), e);
         }
     }
 
@@ -84,8 +107,8 @@ public class Warp {
                     .setValue(0)
                     .setValue(name)
                     .executeUpdate();
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while removing a warp plate from the database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while updating data from the database!"), e);
         }
     }
 
@@ -100,8 +123,8 @@ public class Warp {
                     rsWarp.getDouble(4),
                     rsWarp.getDouble(5)
             );
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp plate data from database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
         return location;
     }
@@ -110,8 +133,8 @@ public class Warp {
     public static boolean exists(String name) {
         try (ResultSet rsWarp = DatabaseConnection.createStatement("SELECT 1 FROM warps WHERE name = ?").setValue(name).executeQuery()) {
             return rsWarp.next();
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp data from database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
         return false;
     }
@@ -127,16 +150,16 @@ public class Warp {
                     .setValue(location.getPitch())
                     .setValue(location.getWorld().getName())
                     .executeUpdate();
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while adding a warp to the database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while adding data to the database!"), e);
         }
     }
 
     public static void removeWarp(String name) {
         try {
             DatabaseConnection.createStatement("DELETE FROM warps WHERE name = ?").setValue(name).executeUpdate();
-        }catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while removing a warp from the database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while deleting data from the database!"), e);
         }
     }
 
@@ -157,9 +180,9 @@ public class Warp {
                     plateList.put(plateLocation, rsWarp.getString(1));
                 }
             }
-            Bukkit.getLogger().log(Level.INFO, "Successfully cached WarpPlate List!");
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp plate data from database!", throwables);
+            Main.getPlugin().getComponentLogger().info("Successfully cached WarpPlate list!");
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
 
         return plateList;
@@ -171,9 +194,9 @@ public class Warp {
             while (rsWarp.next()) {
                 list.add(rsWarp.getString(1));
             }
-            Bukkit.getLogger().log(Level.INFO, "Successfully cached warp tab completion List!");
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting warp data from database!", throwables);
+            Main.getPlugin().getComponentLogger().info("Successfully cached warp tab completion list!");
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
 
         return list;

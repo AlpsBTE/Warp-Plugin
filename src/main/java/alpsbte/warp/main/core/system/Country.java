@@ -1,11 +1,12 @@
 package alpsbte.warp.main.core.system;
 
+import alpsbte.warp.main.Main;
 import alpsbte.warp.main.core.database.DatabaseConnection;
-import org.bukkit.Bukkit;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class Country {
 
@@ -21,14 +22,20 @@ public class Country {
             rsCountry.next();
             name = rsCountry.getString(1);
             headID = rsCountry.getString(2);
-        } catch (SQLException throwables) {
-            Bukkit.getLogger().log(Level.SEVERE,"An error occurred while getting country data from database!", throwables);
+        } catch (SQLException e) {
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while getting data from the database!"), e);
         }
     }
 
-    public int getID() { return ID; }
+    public int getID() {
+        return ID;
+    }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getHeadID() { return  headID; }
+    public String getHeadID() {
+        return headID;
+    }
 }

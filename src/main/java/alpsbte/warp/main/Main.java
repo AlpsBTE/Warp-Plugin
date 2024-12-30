@@ -21,7 +21,8 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
+
+import static net.kyori.adventure.text.Component.text;
 
 public final class Main extends JavaPlugin {
     private static Main plugin;
@@ -63,9 +64,9 @@ public final class Main extends JavaPlugin {
         try {
             DatabaseConnection.InitializeDatabase();
             Bukkit.getConsoleSender().sendMessage("Successfully initialized database connection.");
-        } catch (Exception ex) {
+        } catch (Exception e) {
             Bukkit.getConsoleSender().sendMessage("Could not initialize database connection.");
-            Bukkit.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
+            Main.getPlugin().getComponentLogger().error(text("An error occurred while initializing a database connection!"), e);
 
             this.getServer().getPluginManager().disablePlugin(this);
             return;
@@ -76,7 +77,7 @@ public final class Main extends JavaPlugin {
 
         setHolograms();
 
-        Bukkit.getLogger().log(Level.INFO,"AlpsBTE Warp Plugin loaded!");
+        Main.getPlugin().getComponentLogger().info("AlpsBTE Warp Plugin loaded!");
     }
 
     private void createConfig(String s) {
