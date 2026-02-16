@@ -10,7 +10,7 @@ dependencies:
   server:
     DecentHolograms:
       required: false
-      load: AFTER
+      load: BEFORE
       join-classpath: true
 
 commands:
