@@ -34,6 +34,7 @@ public class DatabaseConnection {
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.setDriverClassName("org.mariadb.jdbc.Driver");
 
         dataSource = new HikariDataSource(config);
     }
