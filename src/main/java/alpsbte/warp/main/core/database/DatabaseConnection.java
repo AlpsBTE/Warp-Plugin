@@ -20,8 +20,6 @@ public class DatabaseConnection {
     private static HikariDataSource dataSource;
 
     public static void InitializeDatabase() throws ClassNotFoundException {
-        Class.forName("org.mariadb.jdbc.Driver");
-
         FileConfiguration configFile = Main.getPlugin().getConfig();
         String URL = configFile.getString("database.url");
         String name = configFile.getString("database.name");
